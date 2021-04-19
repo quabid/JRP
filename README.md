@@ -3,5 +3,6 @@
 ##### _Reference project for Maven POM resource and jar lib implementation using the Visual Studio Code IDE._
 
 - Technologies
-  - Javac: 16
-  - JUnit: 4.11
+  - Javac: v16
+  - JUnit: v4.11
+  - Code: v1.55.2
