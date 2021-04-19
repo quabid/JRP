@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import com.gmail.quabidlord.core.abstracts.frames.CustomFrame;
+import com.gmail.quebed.xproject.core.gui.menus.MyMenu;
 import com.gmail.quebed.xproject.core.gui.panels.LoginPanel;
 import com.gmail.quebed.xproject.core.gui.panels.PostLoginPanel;
 
@@ -31,16 +32,23 @@ public class MyFrame extends CustomFrame implements ActionListener {
     }
 
     private final void postLogin() {
+        this.setJMenuBar(new MyMenu(this).getMenu());
         main.removeAll();
         main.add(new PostLoginPanel(this).createPanel());
         main.revalidate();
         main.repaint();
     }
 
+    // Action Handlers
+
     private final void successfulLogin() {
         ImageIcon icon = createImageIcon("/element-64.png");
         JOptionPane.showMessageDialog(this, "You've successfully logged in", "Congratulations!",
                 JOptionPane.INFORMATION_MESSAGE, icon);
+    }
+
+    private final void quitProg() {
+        this.exitProg();
     }
 
     public void actionPerformed(ActionEvent ae) {
@@ -54,9 +62,14 @@ public class MyFrame extends CustomFrame implements ActionListener {
                 case "submit":
                     postLogin();
                     break;
+
+                case "quit":
+                    quitProg();
+                    break;
                 }
             }
         });
+
     }
 
     /** Returns an ImageIcon, or null if the path was invalid. */
