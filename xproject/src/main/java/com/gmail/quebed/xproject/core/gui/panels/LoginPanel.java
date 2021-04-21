@@ -104,4 +104,9 @@ public class LoginPanel {
     public final String getUsername() {
         return tfUsername.getText();
     }
+
+    public final void clearFields() {
+        tfUsername.setText("");
+        tfPassword.setText("");
+    }
 }

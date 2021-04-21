@@ -30,7 +30,11 @@ public class MyFrame extends CustomFrame implements ActionListener {
     }
 
     private final void createStartGui() {
+        username = null;
+        main.removeAll();
         main.add(login.createPanel());
+        main.revalidate();
+        main.repaint();
     }
 
     private final void postLogin() {
@@ -43,6 +47,11 @@ public class MyFrame extends CustomFrame implements ActionListener {
     }
 
     // Action Handlers
+
+    private final void logout() {
+        login.clearFields();
+        createStartGui();
+    }
 
     private final void successfulLogin() {
         ImageIcon icon = createImageIcon("/element-64.png");
@@ -68,6 +77,10 @@ public class MyFrame extends CustomFrame implements ActionListener {
 
                 case "quit":
                     quitProg();
+                    break;
+
+                case "logout":
+                    logout();
                     break;
                 }
             }

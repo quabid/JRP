@@ -40,8 +40,8 @@ public class PostLoginPanel {
         tabbedPane.addTab("Settings", iconSettings, pnlSettings);
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
-        JComponent pnlQuit = makeLogoutPanel("Quit");
-        tabbedPane.addTab("Logout", iconLogout, pnlQuit);
+        JComponent pnlLogout = makeLogoutPanel("Logout");
+        tabbedPane.addTab("Logout", iconLogout, pnlLogout);
 
         JPanel main = new JPanel();
         main.add(tabbedPane);
@@ -60,13 +60,13 @@ public class PostLoginPanel {
 
     protected JComponent makeLogoutPanel(String text) {
         JPanel panel = new JPanel(false);
-        JPanel pnlBtnQuit = new JPanel();
-        JButton btnQuit = new JButton(text);
-        btnQuit.addActionListener(actionListener);
-        btnQuit.setActionCommand("quit");
-        pnlBtnQuit.add(btnQuit);
+        JPanel pnlBtnLogout = new JPanel();
+        JButton btnLogout = new JButton(text);
+        btnLogout.addActionListener(actionListener);
+        btnLogout.setActionCommand("logout");
+        pnlBtnLogout.add(btnLogout);
         panel.setLayout(new GridLayout(1, 1));
-        panel.add(pnlBtnQuit);
+        panel.add(pnlBtnLogout);
         return panel;
     }
 
