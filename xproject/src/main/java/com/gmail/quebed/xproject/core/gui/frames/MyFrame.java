@@ -16,6 +16,8 @@ import com.gmail.quebed.xproject.core.gui.panels.PostLoginPanel;
 
 public class MyFrame extends CustomFrame implements ActionListener {
     private final JPanel main = new JPanel();
+    private final LoginPanel login = new LoginPanel(this);
+    private String username = "";
 
     public MyFrame(String title) {
         super(title);
@@ -28,13 +30,14 @@ public class MyFrame extends CustomFrame implements ActionListener {
     }
 
     private final void createStartGui() {
-        main.add(new LoginPanel(this).createPanel());
+        main.add(login.createPanel());
     }
 
     private final void postLogin() {
+        username = login.getUsername();
         this.setJMenuBar(new MyMenu(this).getMenu());
         main.removeAll();
-        main.add(new PostLoginPanel(this).createPanel());
+        main.add(new PostLoginPanel(this, username, this.getWidth()).createPanel());
         main.revalidate();
         main.repaint();
     }

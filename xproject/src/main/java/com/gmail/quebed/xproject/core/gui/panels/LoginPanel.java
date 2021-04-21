@@ -51,4 +51,8 @@ public class LoginPanel {
         panel.add(pnlLogin);
         return panel;
     }
+
+    public final String getUsername() {
+        return tfUsername.getText();
+    }
 }
