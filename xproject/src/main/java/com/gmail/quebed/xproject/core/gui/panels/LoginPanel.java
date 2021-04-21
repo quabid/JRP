@@ -3,6 +3,8 @@ package com.gmail.quebed.xproject.core.gui.panels;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,6 +17,7 @@ public class LoginPanel {
     private final String btnSubmitActionCommand = "submit";
     private final JTextField tfUsername = new JTextField(30);
     private final JPasswordField tfPassword = new JPasswordField(30);
+    private final JButton btnSubmit = new JButton("Submit");
 
     public LoginPanel(ActionListener al) {
         this.actionListener = al;
@@ -30,12 +33,58 @@ public class LoginPanel {
         JLabel lblUsername = new JLabel("Username");
         JLabel lblPassword = new JLabel("Password");
 
-        JButton btnSubmit = new JButton("Submit");
         btnSubmit.setActionCommand(btnSubmitActionCommand);
         btnSubmit.addActionListener(actionListener);
+        btnSubmit.setEnabled(false);
 
         tfUsername.setPreferredSize(new Dimension(30, 30));
         tfPassword.setPreferredSize(new Dimension(30, 30));
+
+        tfUsername.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                String username = tfUsername.getText();
+                char[] password = tfPassword.getPassword();
+                boolean validPassword = false;
+
+                if (password.length > 0) {
+                    for (char c : password) {
+                        if (!Character.isWhitespace(c) && !Character.isSpaceChar(c)) {
+                            validPassword = true;
+                        }
+                    }
+                }
+
+                if ((!username.isBlank() && !username.isEmpty()) && (validPassword)) {
+                    btnSubmit.setEnabled(true);
+                } else {
+                    btnSubmit.setEnabled(false);
+                }
+            }
+        });
+
+        tfPassword.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                String username = tfUsername.getText();
+                char[] password = tfPassword.getPassword();
+                boolean validPassword = false;
+
+                if (password.length > 0) {
+                    for (char c : password) {
+                        if (!Character.isWhitespace(c) && !Character.isSpaceChar(c)) {
+                            validPassword = true;
+                        }
+                    }
+                }
+
+                if ((!username.isBlank() && !username.isEmpty()) && (validPassword)) {
+                    btnSubmit.setEnabled(true);
+                } else {
+                    btnSubmit.setEnabled(false);
+                }
+            }
+        });
 
         pnlSubmit.add(btnSubmit);
 
