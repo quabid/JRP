@@ -31,6 +31,13 @@
       <scope>system</scope>
       <systemPath>${basedir}/src/lib/swinggui.jar</systemPath>
     </dependency>
+    <dependency>
+      <groupId>datasaver</groupId>
+      <artifactId>datasaver</artifactId>
+      <version>0.0.1</version>
+      <scope>system</scope>
+      <systemPath>${basedir}/src/lib/datasaver.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>
