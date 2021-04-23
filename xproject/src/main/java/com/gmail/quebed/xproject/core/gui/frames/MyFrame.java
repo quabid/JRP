@@ -39,6 +39,8 @@ public class MyFrame extends CustomFrame implements ActionListener {
         main.repaint();
     }
 
+    // Action Handlers
+
     private final void postSubmit() {
         login.authenticateUser();
 
@@ -54,8 +56,6 @@ public class MyFrame extends CustomFrame implements ActionListener {
             JOptionPane.showMessageDialog(this, "Invalid Credentials", "Oops!", JOptionPane.ERROR_MESSAGE, icon);
         }
     }
-
-    // Action Handlers
 
     private final void logout() {
         login.clearFields();
