@@ -2,11 +2,13 @@ package com.gmail.quebed.xproject.core.gui.panels;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -27,8 +29,21 @@ public class LoginPanel {
         JPanel pnlLogin = new JPanel(new BorderLayout());
         JPanel pnlUsername = new JPanel();
         JPanel pnlPassword = new JPanel();
+        JPanel pnlPasswordParent = new JPanel(new BorderLayout());
         JPanel pnlSubmit = new JPanel();
         JPanel panel = new JPanel();
+
+        JCheckBox chbShowPassword = new JCheckBox("Show Password");
+        chbShowPassword.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                JCheckBox jcb = (JCheckBox) ae.getSource();
+                if (jcb.isSelected()) {
+                    tfPassword.setEchoChar((char) 0);
+                } else {
+                    tfPassword.setEchoChar('*');
+                }
+            }
+        });
 
         JLabel lblUsername = new JLabel("Username");
         JLabel lblPassword = new JLabel("Password");
@@ -65,9 +80,11 @@ public class LoginPanel {
 
         pnlPassword.add(lblPassword);
         pnlPassword.add(tfPassword);
+        pnlPasswordParent.add(pnlPassword, BorderLayout.CENTER);
+        pnlPasswordParent.add(chbShowPassword, BorderLayout.SOUTH);
 
         pnlLogin.add(pnlUsername, BorderLayout.NORTH);
-        pnlLogin.add(pnlPassword, BorderLayout.CENTER);
+        pnlLogin.add(pnlPasswordParent, BorderLayout.CENTER);
         pnlLogin.add(pnlSubmit, BorderLayout.SOUTH);
         panel.add(pnlLogin);
         return panel;

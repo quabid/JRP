@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -53,12 +52,6 @@ public class MyFrame extends CustomFrame implements ActionListener {
         createStartGui();
     }
 
-    private final void successfulLogin() {
-        ImageIcon icon = createImageIcon("/element-64.png");
-        JOptionPane.showMessageDialog(this, "You've successfully logged in", "Congratulations!",
-                JOptionPane.INFORMATION_MESSAGE, icon);
-    }
-
     private final void quitProg() {
         this.exitProg();
     }
@@ -67,10 +60,6 @@ public class MyFrame extends CustomFrame implements ActionListener {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 switch (ae.getActionCommand().toLowerCase().trim()) {
-                case "okay":
-                    successfulLogin();
-                    break;
-
                 case "submit":
                     postLogin();
                     break;
