@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -37,12 +38,19 @@ public class MyFrame extends CustomFrame implements ActionListener {
     }
 
     private final void postLogin() {
-        username = login.getUsername();
-        this.setJMenuBar(new MyMenu(this).getMenu());
-        main.removeAll();
-        main.add(new PostLoginPanel(this, username, this.getWidth()).createPanel());
-        main.revalidate();
-        main.repaint();
+        login.authenticateUser();
+
+        if (login.isAuthenticated()) {
+            username = login.getUsername();
+            this.setJMenuBar(new MyMenu(this).getMenu());
+            main.removeAll();
+            main.add(new PostLoginPanel(this, username, this.getWidth()).createPanel());
+            main.revalidate();
+            main.repaint();
+        } else {
+            ImageIcon icon = createImageIcon("/error-50.png");
+            JOptionPane.showMessageDialog(this, "Invalid Credentials", "Oops!", JOptionPane.ERROR_MESSAGE, icon);
+        }
     }
 
     // Action Handlers

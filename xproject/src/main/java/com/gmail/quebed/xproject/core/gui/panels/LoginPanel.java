@@ -20,6 +20,7 @@ public class LoginPanel {
     private final JTextField tfUsername = new JTextField(30);
     private final JPasswordField tfPassword = new JPasswordField(30);
     private final JButton btnSubmit = new JButton("Submit");
+    private boolean authenticated = false;
 
     public LoginPanel(ActionListener al) {
         this.actionListener = al;
@@ -94,9 +95,17 @@ public class LoginPanel {
         return tfUsername.getText();
     }
 
+    public final boolean isAuthenticated() {
+        return authenticated;
+    }
+
     public final void clearFields() {
         tfUsername.setText("");
         tfPassword.setText("");
+    }
+
+    public final void authenticateUser() {
+        authenticated = false;
     }
 
     private final boolean validCreds(String username, char[] password) {
