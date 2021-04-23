@@ -45,21 +45,7 @@ public class LoginPanel {
             public void keyReleased(KeyEvent ke) {
                 String username = tfUsername.getText();
                 char[] password = tfPassword.getPassword();
-                boolean validPassword = false;
-
-                if (password.length > 0) {
-                    for (char c : password) {
-                        if (!Character.isWhitespace(c) && !Character.isSpaceChar(c)) {
-                            validPassword = true;
-                        }
-                    }
-                }
-
-                if ((!username.isBlank() && !username.isEmpty()) && (validPassword)) {
-                    btnSubmit.setEnabled(true);
-                } else {
-                    btnSubmit.setEnabled(false);
-                }
+                btnSubmit.setEnabled(validCreds(username, password));
             }
         });
 
@@ -68,21 +54,7 @@ public class LoginPanel {
             public void keyReleased(KeyEvent ke) {
                 String username = tfUsername.getText();
                 char[] password = tfPassword.getPassword();
-                boolean validPassword = false;
-
-                if (password.length > 0) {
-                    for (char c : password) {
-                        if (!Character.isWhitespace(c) && !Character.isSpaceChar(c)) {
-                            validPassword = true;
-                        }
-                    }
-                }
-
-                if ((!username.isBlank() && !username.isEmpty()) && (validPassword)) {
-                    btnSubmit.setEnabled(true);
-                } else {
-                    btnSubmit.setEnabled(false);
-                }
+                btnSubmit.setEnabled(validCreds(username, password));
             }
         });
 
@@ -108,5 +80,14 @@ public class LoginPanel {
     public final void clearFields() {
         tfUsername.setText("");
         tfPassword.setText("");
+    }
+
+    private final boolean validCreds(String username, char[] password) {
+        for (int i = 0; i < password.length; i++) {
+            if (Character.isWhitespace(password[i]) || Character.isSpaceChar(password[i])) {
+                return false;
+            }
+        }
+        return !username.isEmpty() && !username.isBlank() && password.length > 0;
     }
 }
