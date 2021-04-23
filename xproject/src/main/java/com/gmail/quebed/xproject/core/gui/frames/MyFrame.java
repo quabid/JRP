@@ -43,7 +43,6 @@ public class MyFrame extends CustomFrame implements ActionListener {
 
     private final void postSubmit() {
         login.authenticateUser();
-
         if (login.isAuthenticated()) {
             username = login.getUsername();
             this.setJMenuBar(new MyMenu(this).getMenu());
