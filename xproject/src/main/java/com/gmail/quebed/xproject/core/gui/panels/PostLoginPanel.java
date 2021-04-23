@@ -13,24 +13,24 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class PostLoginPanel {
-    private final String btnActionCommand = "okay";
+    private final JTabbedPane tabbedPane = new JTabbedPane();
+    private final ImageIcon iconProfile = createImageIcon("/male-profile-30.png");
+    private final ImageIcon iconSettings = createImageIcon("/tune-24.png");
+    private final ImageIcon iconLogout = createImageIcon("/sign-out-30.png");
     private ActionListener actionListener;
     private String username = "";
     private int width;
+    private int tabIndex = -1;
 
     public PostLoginPanel(ActionListener al, String user, int w) {
         this.actionListener = al;
         this.username = user;
-        this.width = (w - 5);
+        this.width = (w - 9);
     }
 
     public final JComponent createPanel() {
-        JTabbedPane tabbedPane = new JTabbedPane();
-        ImageIcon iconProfile = createImageIcon("/male-profile-30.png");
-        ImageIcon iconSettings = createImageIcon("/tune-24.png");
-        ImageIcon iconLogout = createImageIcon("/sign-out-30.png");
-
         tabbedPane.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+        tabbedPane.setSelectedIndex(tabIndex);
 
         JComponent pnlProfile = makeTextPanel(username);
         pnlProfile.setPreferredSize(new Dimension(width, 50));
@@ -79,5 +79,15 @@ public class PostLoginPanel {
             System.err.println("Couldn't find file: " + path);
             return null;
         }
+    }
+
+    // Getters
+
+    public final int getSelectedTabIndex() {
+        return tabbedPane.getSelectedIndex();
+    }
+
+    public final void setSelectedTabIndex(int selectTabIndex) {
+        this.tabIndex = selectTabIndex;
     }
 }
