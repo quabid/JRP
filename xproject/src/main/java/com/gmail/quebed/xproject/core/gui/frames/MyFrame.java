@@ -1,5 +1,6 @@
 package com.gmail.quebed.xproject.core.gui.frames;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -22,11 +23,12 @@ public class MyFrame extends CustomFrame implements ActionListener {
     public MyFrame(String title) {
         super(title);
         URL imgUrl = getClass().getResource("/air-96.png");
-        this.setIconImage(new ImageIcon(imgUrl).getImage());
-        this.add(main);
+        setIconImage(new ImageIcon(imgUrl).getImage());
+        getContentPane().setLayout(new BorderLayout());
+        add(main, BorderLayout.CENTER);
         createStartGui();
-        this.setResizable(false);
-        this.pack();
+        setResizable(false);
+        pack();
     }
 
     private final void createStartGui() {
@@ -37,7 +39,7 @@ public class MyFrame extends CustomFrame implements ActionListener {
         main.repaint();
     }
 
-    private final void postLogin() {
+    private final void postSubmit() {
         login.authenticateUser();
 
         if (login.isAuthenticated()) {
@@ -69,7 +71,7 @@ public class MyFrame extends CustomFrame implements ActionListener {
             public void run() {
                 switch (ae.getActionCommand().toLowerCase().trim()) {
                 case "submit":
-                    postLogin();
+                    postSubmit();
                     break;
 
                 case "quit":
