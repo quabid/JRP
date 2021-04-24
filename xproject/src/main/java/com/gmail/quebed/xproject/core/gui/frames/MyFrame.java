@@ -41,7 +41,7 @@ public class MyFrame extends CustomFrame implements ActionListener {
 
     // Action Handlers
 
-    private final void postSubmit() {
+    private final void postLogin() {
         login.authenticateUser();
         if (login.isAuthenticated()) {
             username = login.getUsername();
@@ -69,8 +69,8 @@ public class MyFrame extends CustomFrame implements ActionListener {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 switch (ae.getActionCommand().toLowerCase().trim()) {
-                case "submit":
-                    postSubmit();
+                case "login":
+                    postLogin();
                     break;
 
                 case "quit":

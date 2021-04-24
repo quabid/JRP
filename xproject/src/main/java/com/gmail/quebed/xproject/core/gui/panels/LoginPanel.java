@@ -16,7 +16,7 @@ import javax.swing.JTextField;
 
 public class LoginPanel {
     private ActionListener actionListener;
-    private final String btnSubmitActionCommand = "submit";
+    private final String btnSubmitActionCommand = "login";
     private final JTextField tfUsername = new JTextField(30);
     private final JPasswordField tfPassword = new JPasswordField(30);
     private final JButton btnSubmit = new JButton("Submit");
