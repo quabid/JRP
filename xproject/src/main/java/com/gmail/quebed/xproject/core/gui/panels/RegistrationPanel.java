@@ -37,12 +37,15 @@ public class RegistrationPanel {
 
         // Config radio buttons
         jrMale.setMnemonic(KeyEvent.VK_M);
+        jrMale.setName(jrMaleActionCommand);
         jrMale.setActionCommand(jrMaleActionCommand);
 
         jrFemale.setMnemonic(KeyEvent.VK_F);
+        jrFemale.setName(jrFemaleActionCommand);
         jrFemale.setActionCommand(jrFemaleActionCommand);
 
         jrOther.setMnemonic(KeyEvent.VK_O);
+        jrOther.setName(jrOtherActionCommand);
         jrOther.setActionCommand(jrOtherActionCommand);
 
         // Group the radio buttons.
