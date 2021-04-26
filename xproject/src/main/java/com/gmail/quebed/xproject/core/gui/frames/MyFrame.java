@@ -2,6 +2,7 @@ package com.gmail.quebed.xproject.core.gui.frames;
 
 import java.awt.CardLayout;
 import java.awt.Container;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -9,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -17,9 +19,12 @@ import com.gmail.quabidlord.core.abstracts.frames.CustomFrame;
 import com.gmail.quebed.xproject.core.gui.menus.MyMenu;
 import com.gmail.quebed.xproject.core.gui.panels.LoginPanel;
 import com.gmail.quebed.xproject.core.gui.panels.PostLoginPanel;
+import com.gmail.quebed.xproject.core.gui.panels.RegistrationPanel;
 
 public class MyFrame extends CustomFrame implements ActionListener, MouseListener {
     private final LoginPanel login = new LoginPanel(this, this);
+    private final JPanel panel = new JPanel();
+    private final RegistrationPanel registrationPanel = new RegistrationPanel(this);
     private String username = "";
 
     public MyFrame(String title) {
@@ -33,7 +38,6 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
 
     private final void createStartGui() {
         CardLayout card;
-        JPanel panel = new JPanel();
         Container c = getContentPane();
         card = new CardLayout(50, 100);
         c.setLayout(card);
@@ -42,6 +46,15 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
     }
 
     // Action Handlers
+
+    private final void showRegistrationForm() {
+        JPanel pnlRegister = null;
+        pnlRegister = registrationPanel.createPanel();
+        panel.removeAll();
+        panel.add(pnlRegister);
+        panel.revalidate();
+        panel.repaint();
+    }
 
     private final void postLogin() {
         login.authenticateUser();
@@ -56,13 +69,6 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
             ImageIcon icon = createImageIcon("/error-50.png");
             alert(icon, "Invalid Credentials", "Oops!");
         }
-    }
-
-    private void alert(ImageIcon icon, String message, String title) {
-        if (null == icon) {
-            icon = createImageIcon("/info-48.png");
-        }
-        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE, icon);
     }
 
     private final void logout() {
@@ -106,10 +112,21 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
         }
     }
 
+    private void alert(ImageIcon icon, String message, String title) {
+        if (null == icon) {
+            icon = createImageIcon("/info-48.png");
+        }
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE, icon);
+    }
+
     @Override
     public void mouseClicked(MouseEvent me) {
-        // TODO Auto-generated method stub
-
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                showRegistrationForm();
+                System.out.println("Mouse clicked at " + me.getPoint());
+            }
+        });
     }
 
     @Override
@@ -120,14 +137,12 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
 
     @Override
     public void mouseReleased(MouseEvent me) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void mouseEntered(MouseEvent me) {
-        alert(null, "Moused over " + me.getPoint(), "Alert");
-
+        JLabel label = (JLabel) me.getSource();
+        label.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
     }
 
     @Override

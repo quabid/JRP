@@ -154,7 +154,7 @@ public class RegistrationPanel {
 
     private final boolean validPasswords(char[] password1, char[] password2) {
         if (password1.length == 0 || password2.length == 0) {
-            formErrors.put("empty-password","Invalid passwords");
+            formErrors.put("empty-password", "Invalid passwords");
             return false;
         } else {
             formErrors.remove("empty-password");
@@ -178,10 +178,9 @@ public class RegistrationPanel {
             }
         }
 
-
         for (int i = 0; i < password1.length; i++) {
             if (password1[i] != password2[i]) {
-                formErrors.put("passwords","Passwords don't match")
+                formErrors.put("passwords", "Passwords don't match");
                 return false;
             } else {
                 formErrors.remove("passwords");
