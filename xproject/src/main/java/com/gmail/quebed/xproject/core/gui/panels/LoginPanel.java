@@ -1,12 +1,15 @@
 package com.gmail.quebed.xproject.core.gui.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -27,13 +30,18 @@ public class LoginPanel {
     }
 
     public final JPanel createPanel() {
-        JPanel pnlLogin = new JPanel(new BorderLayout());
+        JPanel pnlLogin = new JPanel(new BorderLayout(0, 0));
         JPanel pnlUsername = new JPanel();
         JPanel pnlPassword = new JPanel();
         JPanel pnlPasswordParent = new JPanel(new BorderLayout());
         JPanel pnlSubmit = new JPanel();
-        JPanel panel = new JPanel();
+        JPanel pnlUserOptions = new JPanel(new BorderLayout());
+        JPanel pnlChbShowPassword = new JPanel();
+        JPanel pnlLblRegister = new JPanel();
 
+        pnlLogin.setBorder(BorderFactory.createTitledBorder("Login"));
+
+        // User Options
         JCheckBox chbShowPassword = new JCheckBox("Show Password");
         chbShowPassword.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
@@ -45,7 +53,18 @@ public class LoginPanel {
                 }
             }
         });
+        pnlChbShowPassword.add(chbShowPassword);
 
+        JLabel lblRegister = new JLabel("Register");
+        lblRegister.setForeground(Color.BLUE);
+        Font font = new Font("Courier", Font.BOLD, 12);
+        lblRegister.setFont(font);
+        pnlLblRegister.add(lblRegister);
+
+        pnlUserOptions.add(pnlChbShowPassword, BorderLayout.WEST);
+        pnlUserOptions.add(pnlLblRegister, BorderLayout.EAST);
+
+        // User Login
         JLabel lblUsername = new JLabel("Username");
         JLabel lblPassword = new JLabel("Password");
 
@@ -81,14 +100,13 @@ public class LoginPanel {
 
         pnlPassword.add(lblPassword);
         pnlPassword.add(tfPassword);
-        pnlPasswordParent.add(pnlPassword, BorderLayout.CENTER);
-        pnlPasswordParent.add(chbShowPassword, BorderLayout.SOUTH);
+        pnlPasswordParent.add(pnlPassword, BorderLayout.NORTH);
+        pnlPasswordParent.add(pnlUserOptions, BorderLayout.CENTER);
 
         pnlLogin.add(pnlUsername, BorderLayout.NORTH);
         pnlLogin.add(pnlPasswordParent, BorderLayout.CENTER);
         pnlLogin.add(pnlSubmit, BorderLayout.SOUTH);
-        panel.add(pnlLogin);
-        return panel;
+        return pnlLogin;
     }
 
     public final String getUsername() {

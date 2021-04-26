@@ -1,6 +1,7 @@
 package com.gmail.quebed.xproject.core.gui.frames;
 
-import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -16,7 +17,6 @@ import com.gmail.quebed.xproject.core.gui.panels.LoginPanel;
 import com.gmail.quebed.xproject.core.gui.panels.PostLoginPanel;
 
 public class MyFrame extends CustomFrame implements ActionListener {
-    private final JPanel main = new JPanel();
     private final LoginPanel login = new LoginPanel(this);
     private String username = "";
 
@@ -24,19 +24,19 @@ public class MyFrame extends CustomFrame implements ActionListener {
         super(title);
         URL imgUrl = getClass().getResource("/air-96.png");
         setIconImage(new ImageIcon(imgUrl).getImage());
-        getContentPane().setLayout(new BorderLayout());
-        add(main, BorderLayout.CENTER);
         createStartGui();
-        setResizable(false);
         pack();
+        setResizable(false);
     }
 
     private final void createStartGui() {
-        username = null;
-        main.removeAll();
-        main.add(login.createPanel());
-        main.revalidate();
-        main.repaint();
+        CardLayout card;
+        JPanel panel = new JPanel();
+        Container c = getContentPane();
+        card = new CardLayout(50, 100);
+        c.setLayout(card);
+        panel.add(login.createPanel());
+        c.add(panel);
     }
 
     // Action Handlers
@@ -46,10 +46,10 @@ public class MyFrame extends CustomFrame implements ActionListener {
         if (login.isAuthenticated()) {
             username = login.getUsername();
             this.setJMenuBar(new MyMenu(this).getMenu());
-            main.removeAll();
-            main.add(new PostLoginPanel(this, username, this.getWidth()).createPanel());
-            main.revalidate();
-            main.repaint();
+            removeAll();
+            add(new PostLoginPanel(this, username, this.getWidth()).createPanel());
+            revalidate();
+            repaint();
         } else {
             ImageIcon icon = createImageIcon("/error-50.png");
             JOptionPane.showMessageDialog(this, "Invalid Credentials", "Oops!", JOptionPane.ERROR_MESSAGE, icon);
