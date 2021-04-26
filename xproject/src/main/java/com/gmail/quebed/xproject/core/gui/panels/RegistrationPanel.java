@@ -36,8 +36,6 @@ public class RegistrationPanel {
     private boolean registered = false;
     private boolean formFurnished = false;
     private Map<String, String> formErrors = new HashMap<String, String>();
-    private int width = 0;
-    private int height = 0;
 
     public RegistrationPanel(ActionListener al) {
         this.actionListener = al;
