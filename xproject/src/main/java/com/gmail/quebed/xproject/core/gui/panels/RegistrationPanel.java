@@ -160,7 +160,7 @@ public class RegistrationPanel {
         pnlPwd2.add(tfPassword2);
 
         // Buttons
-        JButton btnSubmit = new JButton("Submit");
+        JButton btnSubmit = new JButton("Register");
         btnSubmit.setActionCommand(btnSubmitActionCommand);
         btnSubmit.addActionListener(actionListener);
 
