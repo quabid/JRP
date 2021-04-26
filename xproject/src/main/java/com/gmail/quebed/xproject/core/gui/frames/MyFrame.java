@@ -39,6 +39,8 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
         setResizable(false);
     }
 
+    // Action Handlers
+
     private final void createStartGui() {
         card = new CardLayout(50, 100);
         c.removeAll();
@@ -51,8 +53,6 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
         panel.repaint();
         c.repaint();
     }
-
-    // Action Handlers
 
     private final void showRegistrationForm() {
         JPanel pnlRegister = registrationPanel.createPanel();
