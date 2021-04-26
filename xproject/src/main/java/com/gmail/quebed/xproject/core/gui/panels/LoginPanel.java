@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -19,14 +20,16 @@ import javax.swing.JTextField;
 
 public class LoginPanel {
     private ActionListener actionListener;
+    private MouseListener mouseListener;
     private final String btnSubmitActionCommand = "login";
     private final JTextField tfUsername = new JTextField(30);
     private final JPasswordField tfPassword = new JPasswordField(30);
     private final JButton btnSubmit = new JButton("Submit");
     private boolean authenticated = false;
 
-    public LoginPanel(ActionListener al) {
+    public LoginPanel(ActionListener al, MouseListener ml) {
         this.actionListener = al;
+        this.mouseListener = ml;
     }
 
     public final JPanel createPanel() {
@@ -59,6 +62,7 @@ public class LoginPanel {
         lblRegister.setForeground(Color.BLUE);
         Font font = new Font("Courier", Font.BOLD, 12);
         lblRegister.setFont(font);
+        lblRegister.addMouseListener(mouseListener);
         pnlLblRegister.add(lblRegister);
 
         pnlUserOptions.add(pnlChbShowPassword, BorderLayout.WEST);

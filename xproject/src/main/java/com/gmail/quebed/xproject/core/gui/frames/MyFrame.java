@@ -4,6 +4,8 @@ import java.awt.CardLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -16,8 +18,8 @@ import com.gmail.quebed.xproject.core.gui.menus.MyMenu;
 import com.gmail.quebed.xproject.core.gui.panels.LoginPanel;
 import com.gmail.quebed.xproject.core.gui.panels.PostLoginPanel;
 
-public class MyFrame extends CustomFrame implements ActionListener {
-    private final LoginPanel login = new LoginPanel(this);
+public class MyFrame extends CustomFrame implements ActionListener, MouseListener {
+    private final LoginPanel login = new LoginPanel(this, this);
     private String username = "";
 
     public MyFrame(String title) {
@@ -52,8 +54,15 @@ public class MyFrame extends CustomFrame implements ActionListener {
             repaint();
         } else {
             ImageIcon icon = createImageIcon("/error-50.png");
-            JOptionPane.showMessageDialog(this, "Invalid Credentials", "Oops!", JOptionPane.ERROR_MESSAGE, icon);
+            alert(icon, "Invalid Credentials", "Oops!");
         }
+    }
+
+    private void alert(ImageIcon icon, String message, String title) {
+        if (null == icon) {
+            icon = createImageIcon("/info-48.png");
+        }
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE, icon);
     }
 
     private final void logout() {
@@ -95,6 +104,36 @@ public class MyFrame extends CustomFrame implements ActionListener {
             System.err.println("Couldn't find file: " + path);
             return null;
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+        alert(null, "Moused over " + me.getPoint(), "Alert");
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+        // TODO Auto-generated method stub
+
     }
 
 }
