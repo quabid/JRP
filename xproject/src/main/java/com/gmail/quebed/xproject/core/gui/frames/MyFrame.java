@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
 import com.gmail.quabidlord.core.abstracts.frames.CustomFrame;
@@ -24,8 +25,10 @@ import com.gmail.quebed.xproject.core.gui.panels.RegistrationPanel;
 public class MyFrame extends CustomFrame implements ActionListener, MouseListener {
     private final LoginPanel login = new LoginPanel(this, this);
     private final JPanel panel = new JPanel();
+    private final Container c = getContentPane();
     private final RegistrationPanel registrationPanel = new RegistrationPanel(this);
     private String username = "";
+    CardLayout card;
 
     public MyFrame(String title) {
         super(title);
@@ -37,23 +40,29 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
     }
 
     private final void createStartGui() {
-        CardLayout card;
-        Container c = getContentPane();
         card = new CardLayout(50, 100);
+        c.removeAll();
+        panel.removeAll();
         c.setLayout(card);
         panel.add(login.createPanel());
         c.add(panel);
+        c.revalidate();
+        panel.revalidate();
+        panel.repaint();
+        c.repaint();
     }
 
     // Action Handlers
 
     private final void showRegistrationForm() {
-        JPanel pnlRegister = null;
-        pnlRegister = registrationPanel.createPanel();
-        panel.removeAll();
-        panel.add(pnlRegister);
-        panel.revalidate();
-        panel.repaint();
+        JPanel pnlRegister = registrationPanel.createPanel();
+        JScrollPane scroll = new JScrollPane(pnlRegister);
+        card = new CardLayout(25, 25);
+        c.removeAll();
+        c.setLayout(card);
+        c.add(scroll);
+        c.revalidate();
+        c.repaint();
     }
 
     private final void postLogin() {
@@ -61,10 +70,10 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
         if (login.isAuthenticated()) {
             username = login.getUsername();
             this.setJMenuBar(new MyMenu(this).getMenu());
-            removeAll();
-            add(new PostLoginPanel(this, username, this.getWidth()).createPanel());
-            revalidate();
-            repaint();
+            c.removeAll();
+            c.add(new PostLoginPanel(this, username, this.getWidth()).createPanel());
+            c.revalidate();
+            c.repaint();
         } else {
             ImageIcon icon = createImageIcon("/error-50.png");
             alert(icon, "Invalid Credentials", "Oops!");
@@ -95,28 +104,18 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
                 case "logout":
                     logout();
                     break;
+
+                case "cancel":
+                    createStartGui();
+                    break;
+
+                case "register":
+                    System.out.println("Registration Requested");
+                    break;
                 }
             }
         });
 
-    }
-
-    /** Returns an ImageIcon, or null if the path was invalid. */
-    protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = MyFrame.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-    }
-
-    private void alert(ImageIcon icon, String message, String title) {
-        if (null == icon) {
-            icon = createImageIcon("/info-48.png");
-        }
-        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE, icon);
     }
 
     @Override
@@ -149,6 +148,24 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
     public void mouseExited(MouseEvent me) {
         // TODO Auto-generated method stub
 
+    }
+
+    /** Returns an ImageIcon, or null if the path was invalid. */
+    protected static ImageIcon createImageIcon(String path) {
+        java.net.URL imgURL = MyFrame.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
+
+    private void alert(ImageIcon icon, String message, String title) {
+        if (null == icon) {
+            icon = createImageIcon("/info-48.png");
+        }
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE, icon);
     }
 
 }

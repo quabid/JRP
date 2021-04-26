@@ -1,5 +1,6 @@
 package com.gmail.quebed.xproject.core.gui.panels;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -7,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,6 +20,7 @@ import javax.swing.JTextField;
 public class RegistrationPanel {
     private ActionListener actionListener;
     private final String btnSubmitActionCommand = "register";
+    private final String btnCancelActionCommand = "cancel";
     private final JTextField tfFirstName = new JTextField(30);
     private final JTextField tfLastName = new JTextField(30);
     private final JTextField tfEmail = new JTextField(30);
@@ -33,6 +36,8 @@ public class RegistrationPanel {
     private boolean registered = false;
     private boolean formFurnished = false;
     private Map<String, String> formErrors = new HashMap<String, String>();
+    private int width = 0;
+    private int height = 0;
 
     public RegistrationPanel(ActionListener al) {
         this.actionListener = al;
@@ -46,14 +51,23 @@ public class RegistrationPanel {
         JPanel pnlPwd1 = new JPanel();
         JPanel pnlPwd2 = new JPanel();
         JPanel pnlRadio = new JPanel();
+        JPanel pnlButtons = new JPanel();
 
-        main.setLayout(new GridLayout(6, 1));
+        pnlFirstname.setBorder(BorderFactory.createTitledBorder("First Name"));
+        pnlLastname.setBorder(BorderFactory.createTitledBorder("Last Name"));
+        pnlEmail.setBorder(BorderFactory.createTitledBorder("Email"));
+        pnlPwd1.setBorder(BorderFactory.createTitledBorder("Password"));
+        pnlPwd2.setBorder(BorderFactory.createTitledBorder("Confirm Password"));
+        pnlRadio.setBorder(BorderFactory.createTitledBorder("Choose Gender"));
+
+        main.setLayout(new GridLayout(7, 1));
         main.add(pnlFirstname);
         main.add(pnlLastname);
         main.add(pnlEmail);
         main.add(pnlRadio);
         main.add(pnlPwd1);
         main.add(pnlPwd2);
+        main.add(pnlButtons);
 
         // Config radio buttons
         jrMale.setMnemonic(KeyEvent.VK_M);
@@ -90,6 +104,7 @@ public class RegistrationPanel {
                 btnRegister.setEnabled(formFurnished);
             }
         });
+        tfFirstName.setPreferredSize(new Dimension(30, 30));
 
         tfLastName.addKeyListener(new KeyAdapter() {
             public void keyRelease(KeyEvent Ke) {
@@ -105,6 +120,7 @@ public class RegistrationPanel {
                 btnRegister.setEnabled(formFurnished);
             }
         });
+        tfLastName.setPreferredSize(new Dimension(30, 30));
 
         tfEmail.addKeyListener(new KeyAdapter() {
             public void keyRelease(KeyEvent Ke) {
@@ -120,12 +136,14 @@ public class RegistrationPanel {
                 btnRegister.setEnabled(formFurnished);
             }
         });
+        tfEmail.setPreferredSize(new Dimension(30, 30));
 
         tfPassword1.addKeyListener(new KeyAdapter() {
             public void keyRelease(KeyEvent ke) {
                 formFurnished = validPasswords(tfPassword1.getPassword(), tfPassword2.getPassword());
             }
         });
+        tfPassword1.setPreferredSize(new Dimension(30, 30));
 
         tfPassword2.addKeyListener(new KeyAdapter() {
             public void keyRelease(KeyEvent ke) {
@@ -133,12 +151,30 @@ public class RegistrationPanel {
                 btnRegister.setEnabled(formFurnished);
             }
         });
+        tfPassword2.setPreferredSize(new Dimension(30, 30));
 
         pnlFirstname.add(tfFirstName);
         pnlLastname.add(tfLastName);
         pnlEmail.add(tfEmail);
+        pnlPwd1.add(tfPassword1);
+        pnlPwd2.add(tfPassword2);
 
-        return main;
+        // Buttons
+        JButton btnSubmit = new JButton("Submit");
+        btnSubmit.setActionCommand(btnSubmitActionCommand);
+        btnSubmit.addActionListener(actionListener);
+
+        JButton btnCancel = new JButton("Cancel");
+        btnCancel.setActionCommand(btnCancelActionCommand);
+        btnCancel.addActionListener(actionListener);
+
+        pnlButtons.add(btnSubmit);
+        pnlButtons.add(btnCancel);
+
+        JPanel panel = new JPanel();
+        panel.add(main);
+
+        return panel;
     }
 
     /** Returns an ImageIcon, or null if the path was invalid. */
