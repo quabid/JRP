@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 
 public class RegistrationPanel {
     private ActionListener actionListener;
+    private boolean formFurnished = false;
+    private Map<String, String> formErrors = new HashMap<String, String>();
     private final String btnSubmitActionCommand = "register";
     private final String btnCancelActionCommand = "cancel";
     private final JTextField tfFirstName = new JTextField(30);
@@ -33,9 +35,7 @@ public class RegistrationPanel {
     private final JPasswordField tfPassword1 = new JPasswordField(30);
     private final JPasswordField tfPassword2 = new JPasswordField(30);
     private final JButton btnRegister = new JButton("Register");
-    private boolean registered = false;
-    private boolean formFurnished = false;
-    private Map<String, String> formErrors = new HashMap<String, String>();
+    private final JButton btnCancel = new JButton("Cancel");
 
     public RegistrationPanel(ActionListener al) {
         this.actionListener = al;
@@ -89,64 +89,41 @@ public class RegistrationPanel {
 
         // Config names and email fields
         tfFirstName.addKeyListener(new KeyAdapter() {
-            public void keyRelease(KeyEvent Ke) {
-                if ((tfFirstName.getText().isBlank() || tfFirstName.getText().isEmpty())
-                        || (tfLastName.getText().isBlank() || tfLastName.getText().isEmpty())
-                        || (tfEmail.getText().isBlank() || tfEmail.getText().isEmpty())) {
-                    formErrors.put("fname", "Must provide a first name");
-                    formFurnished = false;
-                } else {
-                    formErrors.remove("fname");
-                    formFurnished = true;
-                }
-                btnRegister.setEnabled(formFurnished);
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                validNameFields();
             }
         });
         tfFirstName.setPreferredSize(new Dimension(30, 30));
 
         tfLastName.addKeyListener(new KeyAdapter() {
-            public void keyRelease(KeyEvent Ke) {
-                if ((tfFirstName.getText().isBlank() || tfFirstName.getText().isEmpty())
-                        || (tfLastName.getText().isBlank() || tfLastName.getText().isEmpty())
-                        || (tfEmail.getText().isBlank() || tfEmail.getText().isEmpty())) {
-                    formErrors.put("lname", "Must provide a last name");
-                    formFurnished = false;
-                } else {
-                    formErrors.remove("lname");
-                    formFurnished = true;
-                }
-                btnRegister.setEnabled(formFurnished);
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                validNameFields();
             }
         });
         tfLastName.setPreferredSize(new Dimension(30, 30));
 
         tfEmail.addKeyListener(new KeyAdapter() {
-            public void keyRelease(KeyEvent Ke) {
-                if ((tfFirstName.getText().isBlank() || tfFirstName.getText().isEmpty())
-                        || (tfLastName.getText().isBlank() || tfLastName.getText().isEmpty())
-                        || (tfEmail.getText().isBlank() || tfEmail.getText().isEmpty())) {
-                    formErrors.put("email", "Must provide an email");
-                    formFurnished = false;
-                } else {
-                    formErrors.remove("email");
-                    formFurnished = true;
-                }
-                btnRegister.setEnabled(formFurnished);
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                validNameFields();
             }
         });
         tfEmail.setPreferredSize(new Dimension(30, 30));
 
         tfPassword1.addKeyListener(new KeyAdapter() {
-            public void keyRelease(KeyEvent ke) {
-                formFurnished = validPasswords(tfPassword1.getPassword(), tfPassword2.getPassword());
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                btnRegister.setEnabled(validPasswords());
             }
         });
         tfPassword1.setPreferredSize(new Dimension(30, 30));
 
         tfPassword2.addKeyListener(new KeyAdapter() {
-            public void keyRelease(KeyEvent ke) {
-                formFurnished = validPasswords(tfPassword1.getPassword(), tfPassword2.getPassword());
-                btnRegister.setEnabled(formFurnished);
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                btnRegister.setEnabled(validPasswords());
             }
         });
         tfPassword2.setPreferredSize(new Dimension(30, 30));
@@ -158,15 +135,14 @@ public class RegistrationPanel {
         pnlPwd2.add(tfPassword2);
 
         // Buttons
-        JButton btnSubmit = new JButton("Register");
-        btnSubmit.setActionCommand(btnSubmitActionCommand);
-        btnSubmit.addActionListener(actionListener);
+        btnRegister.setEnabled(formFurnished);
+        btnRegister.setActionCommand(btnSubmitActionCommand);
+        btnRegister.addActionListener(actionListener);
 
-        JButton btnCancel = new JButton("Cancel");
         btnCancel.setActionCommand(btnCancelActionCommand);
         btnCancel.addActionListener(actionListener);
 
-        pnlButtons.add(btnSubmit);
+        pnlButtons.add(btnRegister);
         pnlButtons.add(btnCancel);
 
         JPanel panel = new JPanel();
@@ -175,20 +151,40 @@ public class RegistrationPanel {
         return panel;
     }
 
-    /** Returns an ImageIcon, or null if the path was invalid. */
-    protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = RegistrationPanel.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
+    private void validNameFields() {
+        if (tfFirstName.getText().isEmpty() || tfFirstName.getText().isBlank()) {
+            formErrors.put("empty-first-name", "Must provide a first name");
         } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
+            formErrors.remove("empty-first-name");
         }
+
+        if (tfLastName.getText().isEmpty() || tfLastName.getText().isBlank()) {
+            formErrors.put("empty-last-name", "Must provide a first name");
+        } else {
+            formErrors.remove("empty-last-name");
+        }
+
+        if (tfEmail.getText().isEmpty() || tfEmail.getText().isBlank()) {
+            formErrors.put("empty-email", "Must provide a first name");
+        } else {
+            formErrors.remove("empty-email");
+        }
+
+        btnRegister.setEnabled((!tfFirstName.getText().isEmpty() && !tfFirstName.getText().isBlank())
+                && (!tfLastName.getText().isEmpty() && !tfLastName.getText().isBlank())
+                && (!tfEmail.getText().isEmpty() && !tfEmail.getText().isBlank()) && formErrors.size() == 0
+                && validPasswords());
+
     }
 
-    private final boolean validPasswords(char[] password1, char[] password2) {
+    private final boolean validPasswords() {
+        final char[] password1 = tfPassword1.getPassword();
+        final char[] password2 = tfPassword2.getPassword();
+
         if (password1.length == 0 || password2.length == 0) {
             formErrors.put("empty-password", "Invalid passwords");
+            return false;
+        } else if (password1.length != password2.length) {
             return false;
         } else {
             formErrors.remove("empty-password");
@@ -223,4 +219,33 @@ public class RegistrationPanel {
 
         return true;
     }
+
+    // Getters
+    public final HashMap<String, String> getData() {
+        final HashMap<String, String> data = new HashMap<String, String>();
+        String password = "";
+
+        for (char c : tfPassword1.getPassword()) {
+            password += c;
+        }
+
+        data.put("fname", tfFirstName.getText());
+        data.put("lname", tfLastName.getText());
+        data.put("email", tfEmail.getText());
+        data.put("password", password);
+        return data;
+
+    }
+
+    /** Returns an ImageIcon, or null if the path was invalid. */
+    protected static ImageIcon createImageIcon(String path) {
+        java.net.URL imgURL = RegistrationPanel.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
+
 }

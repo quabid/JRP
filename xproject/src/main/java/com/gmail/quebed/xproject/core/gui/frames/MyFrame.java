@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
+import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -40,6 +41,11 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
     }
 
     // Action Handlers
+
+    private final void registerUser() {
+        HashMap<String, String> data = registrationPanel.getData();
+        printData(data);
+    }
 
     private final void createStartGui() {
         card = new CardLayout(50, 100);
@@ -111,7 +117,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
                     break;
 
                 case "register":
-                    System.out.println("Registration Requested");
+                    registerUser();
                     break;
                 }
             }
@@ -119,6 +125,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
 
     }
 
+    // Mouse Events
     @Override
     public void mouseClicked(MouseEvent me) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -160,6 +167,12 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
             System.err.println("Couldn't find file: " + path);
             return null;
         }
+    }
+
+    // Utils
+    private final void printData(HashMap data) {
+        System.out.println("First Name: " + data.get("fname") + "\nLast Name: " + data.get("lname") + "\nEmail: "
+                + data.get("email") + "\nPassword: " + data.get("password"));
     }
 
     private void alert(ImageIcon icon, String message, String title) {
