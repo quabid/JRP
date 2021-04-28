@@ -175,7 +175,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
                 + data.get("email") + "\nPassword: " + data.get("password"));
     }
 
-    private void alert(ImageIcon icon, String message, String title) {
+    private final void alert(ImageIcon icon, String message, String title) {
         if (null == icon) {
             icon = createImageIcon("/info-48.png");
         }
