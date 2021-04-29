@@ -86,7 +86,7 @@ public class RegistrationPanel {
         group.add(jrFemale);
         group.add(jrOther);
 
-        // Config names and email fields
+        // Config text fields
         tfFirstName.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
