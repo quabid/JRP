@@ -3,6 +3,8 @@ package com.gmail.quebed.xproject.core.gui.panels;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
@@ -91,7 +93,7 @@ public class RegistrationPanel {
         tfFirstName.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                validNameFields();
+                btnRegister.setEnabled(validNameFields() && validPasswords());
             }
         });
         tfFirstName.setPreferredSize(new Dimension(30, 30));
@@ -99,7 +101,7 @@ public class RegistrationPanel {
         tfLastName.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                validNameFields();
+                btnRegister.setEnabled(validNameFields() && validPasswords());
             }
         });
         tfLastName.setPreferredSize(new Dimension(30, 30));
@@ -107,7 +109,7 @@ public class RegistrationPanel {
         tfEmail.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                validNameFields();
+                btnRegister.setEnabled(validNameFields() && validPasswords());
             }
         });
         tfEmail.setPreferredSize(new Dimension(30, 30));
@@ -115,7 +117,7 @@ public class RegistrationPanel {
         tfPassword1.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                btnRegister.setEnabled(validPasswords());
+                btnRegister.setEnabled(validNameFields() && validPasswords());
             }
         });
         tfPassword1.setPreferredSize(new Dimension(30, 30));
@@ -123,7 +125,7 @@ public class RegistrationPanel {
         tfPassword2.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                btnRegister.setEnabled(validPasswords());
+                btnRegister.setEnabled(validNameFields() && validPasswords());
             }
         });
         tfPassword2.setPreferredSize(new Dimension(30, 30));
@@ -146,35 +148,54 @@ public class RegistrationPanel {
         pnlButtons.add(btnCancel);
 
         JPanel panel = new JPanel();
+        panel.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent fe) {
+                System.out.println("Focus lost");
+                clearFields();
+            }
+        });
         panel.add(main);
 
         return panel;
     }
 
-    private void validNameFields() {
-        if (tfFirstName.getText().isEmpty() || tfFirstName.getText().isBlank()) {
+    // Utils
+
+    private final void clearFields() {
+        tfFirstName.setText("");
+        tfLastName.setText("");
+        tfEmail.setText("");
+        tfPassword1.setText("");
+        tfPassword2.setText("");
+    }
+
+    private final boolean validNameFields() {
+        final String firstName = tfFirstName.getText();
+        final String lastName = tfLastName.getText();
+        final String email = tfEmail.getText();
+
+        if (firstName.isEmpty() || firstName.isBlank()) {
             formErrors.put("empty-first-name", "Must provide a first name");
+            return false;
         } else {
             formErrors.remove("empty-first-name");
         }
 
-        if (tfLastName.getText().isEmpty() || tfLastName.getText().isBlank()) {
+        if (lastName.isEmpty() || lastName.isBlank()) {
             formErrors.put("empty-last-name", "Must provide a first name");
+            return false;
         } else {
             formErrors.remove("empty-last-name");
         }
 
-        if (tfEmail.getText().isEmpty() || tfEmail.getText().isBlank()) {
+        if (email.isEmpty() || email.isBlank()) {
             formErrors.put("empty-email", "Must provide a first name");
+            return false;
         } else {
             formErrors.remove("empty-email");
         }
-
-        btnRegister.setEnabled((!tfFirstName.getText().isEmpty() && !tfFirstName.getText().isBlank())
-                && (!tfLastName.getText().isEmpty() && !tfLastName.getText().isBlank())
-                && (!tfEmail.getText().isEmpty() && !tfEmail.getText().isBlank()) && formErrors.size() == 0
-                && validPasswords());
-
+        return true;
     }
 
     private final boolean validPasswords() {
