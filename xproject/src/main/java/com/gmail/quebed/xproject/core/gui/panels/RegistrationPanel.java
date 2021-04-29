@@ -3,8 +3,6 @@ package com.gmail.quebed.xproject.core.gui.panels;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
@@ -148,13 +146,6 @@ public class RegistrationPanel {
         pnlButtons.add(btnCancel);
 
         JPanel panel = new JPanel();
-        panel.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent fe) {
-                System.out.println("Focus lost");
-                clearFields();
-            }
-        });
         panel.add(main);
 
         return panel;
@@ -162,7 +153,7 @@ public class RegistrationPanel {
 
     // Utils
 
-    private final void clearFields() {
+    public final void clearFields() {
         tfFirstName.setText("");
         tfLastName.setText("");
         tfEmail.setText("");

@@ -48,6 +48,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
     }
 
     private final void createStartGui() {
+        registrationPanel.clearFields();
         card = new CardLayout(50, 100);
         c.removeAll();
         panel.removeAll();
