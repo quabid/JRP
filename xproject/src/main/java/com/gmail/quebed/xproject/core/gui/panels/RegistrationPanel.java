@@ -19,7 +19,6 @@ import javax.swing.JTextField;
 
 public class RegistrationPanel {
     private ActionListener actionListener;
-    private boolean formFurnished = false;
     private Map<String, String> formErrors = new HashMap<String, String>();
     private final String btnSubmitActionCommand = "register";
     private final String btnCancelActionCommand = "cancel";
@@ -135,7 +134,7 @@ public class RegistrationPanel {
         pnlPwd2.add(tfPassword2);
 
         // Buttons
-        btnRegister.setEnabled(formFurnished);
+        btnRegister.setEnabled(validNameFields() && validPasswords());
         btnRegister.setActionCommand(btnSubmitActionCommand);
         btnRegister.addActionListener(actionListener);
 
