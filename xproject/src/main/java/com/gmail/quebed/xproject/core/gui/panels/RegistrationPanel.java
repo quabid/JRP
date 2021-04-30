@@ -7,6 +7,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -181,13 +183,24 @@ public class RegistrationPanel {
 
     private final boolean validEmailField() {
         final String email = tfEmail.getText();
+        final String strPattern = "\\w+(\\.\\w+)?@\\w+(\\.\\w{3})$";
+        final Pattern pattern = Pattern.compile(strPattern);
+        final Matcher matcher = pattern.matcher(email);
+        final boolean validEmail = matcher.find();
         if (email.isEmpty() || email.isBlank()) {
             formErrors.put("empty-email", "Must provide a first name");
             return false;
         } else {
             formErrors.remove("empty-email");
         }
-        return true;
+
+        if (!validEmail) {
+            formErrors.put("invalid-email", "Must provide a valid email");
+            return validEmail;
+        } else {
+            formErrors.remove("invalid-email");
+            return validEmail;
+        }
     }
 
     private final boolean validPasswords() {

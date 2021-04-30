@@ -101,25 +101,25 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 switch (ae.getActionCommand().toLowerCase().trim()) {
-                case "login":
-                    postLogin();
-                    break;
+                    case "login":
+                        postLogin();
+                        break;
 
-                case "quit":
-                    quitProg();
-                    break;
+                    case "quit":
+                        quitProg();
+                        break;
 
-                case "logout":
-                    logout();
-                    break;
+                    case "logout":
+                        logout();
+                        break;
 
-                case "cancel":
-                    createStartGui();
-                    break;
+                    case "cancel":
+                        createStartGui();
+                        break;
 
-                case "register":
-                    registerUser();
-                    break;
+                    case "register":
+                        registerUser();
+                        break;
                 }
             }
         });
@@ -171,7 +171,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
     }
 
     // Utils
-    private final void printData(HashMap data) {
+    private final void printData(HashMap<String, String> data) {
         System.out.println("First Name: " + data.get("fname") + "\nLast Name: " + data.get("lname") + "\nEmail: "
                 + data.get("email") + "\nPassword: " + data.get("password"));
     }
