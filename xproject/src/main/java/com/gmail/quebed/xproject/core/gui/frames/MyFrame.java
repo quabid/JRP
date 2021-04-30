@@ -139,8 +139,6 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
 
     @Override
     public void mousePressed(MouseEvent me) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -155,8 +153,6 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
 
     @Override
     public void mouseExited(MouseEvent me) {
-        // TODO Auto-generated method stub
-
     }
 
     /** Returns an ImageIcon, or null if the path was invalid. */
