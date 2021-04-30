@@ -250,8 +250,8 @@ public class RegistrationPanel {
     public final HashMap<String, String> getData() {
         final HashMap<String, String> data = new HashMap<String, String>();
         String password = "";
-        String gender = j"";
-        
+        String gender = "";
+
         if (jrMale.isSelected()) {
             gender = "male";
         } else if (jrFemale.isSelected()) {

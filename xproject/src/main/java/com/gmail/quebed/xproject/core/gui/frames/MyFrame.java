@@ -168,8 +168,8 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
 
     // Utils
     private final void printData(HashMap<String, String> data) {
-        System.out.println("First Name: " + data.get("fname") + "\nLast Name: " + data.get("lname") + "\nEmail: "
-                + data.get("email") + "\nPassword: " + data.get("password"));
+        System.out.println("First Name: " + data.get("fname") + "\nLast Name: " + data.get("lname") + "\nGender: "
+                + data.get("gender") + "\nEmail: " + data.get("email") + "\nPassword: " + data.get("password"));
     }
 
     private final void alert(ImageIcon icon, String message, String title) {
