@@ -90,7 +90,7 @@ public class RegistrationPanel {
         tfFirstName.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                btnRegister.setEnabled(validNameFields() && validPasswords());
+                btnRegister.setEnabled(validNameFields() && validEmailField() && validPasswords());
             }
         });
         tfFirstName.setPreferredSize(new Dimension(30, 30));
@@ -98,7 +98,7 @@ public class RegistrationPanel {
         tfLastName.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                btnRegister.setEnabled(validNameFields() && validPasswords());
+                btnRegister.setEnabled(validNameFields() && validEmailField() && validPasswords());
             }
         });
         tfLastName.setPreferredSize(new Dimension(30, 30));
@@ -106,7 +106,7 @@ public class RegistrationPanel {
         tfEmail.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                btnRegister.setEnabled(validNameFields() && validPasswords());
+                btnRegister.setEnabled(validNameFields() && validEmailField() && validPasswords());
             }
         });
         tfEmail.setPreferredSize(new Dimension(30, 30));
@@ -114,7 +114,7 @@ public class RegistrationPanel {
         tfPassword1.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                btnRegister.setEnabled(validNameFields() && validPasswords());
+                btnRegister.setEnabled(validNameFields() && validEmailField() && validPasswords());
             }
         });
         tfPassword1.setPreferredSize(new Dimension(30, 30));
@@ -122,7 +122,7 @@ public class RegistrationPanel {
         tfPassword2.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent ke) {
-                btnRegister.setEnabled(validNameFields() && validPasswords());
+                btnRegister.setEnabled(validNameFields() && validEmailField() && validPasswords());
             }
         });
         tfPassword2.setPreferredSize(new Dimension(30, 30));
@@ -134,7 +134,7 @@ public class RegistrationPanel {
         pnlPwd2.add(tfPassword2);
 
         // Buttons
-        btnRegister.setEnabled(validNameFields() && validPasswords());
+        btnRegister.setEnabled(validNameFields() && validEmailField() && validPasswords());
         btnRegister.setActionCommand(btnSubmitActionCommand);
         btnRegister.addActionListener(actionListener);
 
@@ -163,8 +163,6 @@ public class RegistrationPanel {
     private final boolean validNameFields() {
         final String firstName = tfFirstName.getText();
         final String lastName = tfLastName.getText();
-        final String email = tfEmail.getText();
-
         if (firstName.isEmpty() || firstName.isBlank()) {
             formErrors.put("empty-first-name", "Must provide a first name");
             return false;
@@ -178,7 +176,11 @@ public class RegistrationPanel {
         } else {
             formErrors.remove("empty-last-name");
         }
+        return true;
+    }
 
+    private final boolean validEmailField() {
+        final String email = tfEmail.getText();
         if (email.isEmpty() || email.isBlank()) {
             formErrors.put("empty-email", "Must provide a first name");
             return false;
