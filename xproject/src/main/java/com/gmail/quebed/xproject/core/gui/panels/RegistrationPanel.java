@@ -250,6 +250,15 @@ public class RegistrationPanel {
     public final HashMap<String, String> getData() {
         final HashMap<String, String> data = new HashMap<String, String>();
         String password = "";
+        String gender = j"";
+        
+        if (jrMale.isSelected()) {
+            gender = "male";
+        } else if (jrFemale.isSelected()) {
+            gender = "female";
+        } else {
+            gender = "other";
+        }
 
         for (char c : tfPassword1.getPassword()) {
             password += c;
@@ -257,6 +266,7 @@ public class RegistrationPanel {
 
         data.put("fname", tfFirstName.getText());
         data.put("lname", tfLastName.getText());
+        data.put("gender", gender);
         data.put("email", tfEmail.getText());
         data.put("password", password);
         return data;
