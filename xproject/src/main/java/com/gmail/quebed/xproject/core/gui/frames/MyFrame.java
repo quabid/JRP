@@ -25,11 +25,11 @@ import com.gmail.quebed.xproject.core.gui.panels.RegistrationPanel;
 
 public class MyFrame extends CustomFrame implements ActionListener, MouseListener {
     private final LoginPanel login = new LoginPanel(this, this);
+    private final RegistrationPanel registrationPanel = new RegistrationPanel(this);
     private final JPanel panel = new JPanel();
     private final Container c = getContentPane();
-    private final RegistrationPanel registrationPanel = new RegistrationPanel(this);
-    private String username = "";
     private CardLayout card;
+    private String username = "";
 
     public MyFrame(String title) {
         super(title);
