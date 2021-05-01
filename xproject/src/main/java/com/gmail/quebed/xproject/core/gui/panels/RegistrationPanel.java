@@ -187,7 +187,7 @@ public class RegistrationPanel {
         final Matcher matcher = pattern.matcher(email);
         final boolean validEmail = matcher.find();
         if (email.isEmpty() || email.isBlank()) {
-            formErrors.put("empty-email", "Must provide a first name");
+            formErrors.put("empty-email", "Must provide an email");
             return false;
         } else {
             formErrors.remove("empty-email");
