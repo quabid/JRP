@@ -21,18 +21,18 @@ import javax.swing.JTextField;
 
 public class RegistrationPanel {
     private ActionListener actionListener;
-    private Map<String, String> formErrors = new HashMap<String, String>();
+    private final Map<String, String> formErrors = new HashMap<String, String>();
     private final String btnSubmitActionCommand = "register";
     private final String btnCancelActionCommand = "cancel";
+    private final String jrMaleActionCommand = "male";
+    private final String jrFemaleActionCommand = "female";
+    private final String jrOtherActionCommand = "other";
     private final JTextField tfFirstName = new JTextField(30);
     private final JTextField tfLastName = new JTextField(30);
     private final JTextField tfEmail = new JTextField(30);
     private final JRadioButton jrMale = new JRadioButton("Male");
     private final JRadioButton jrFemale = new JRadioButton("Female");
     private final JRadioButton jrOther = new JRadioButton("Other");
-    private final String jrMaleActionCommand = "male";
-    private final String jrFemaleActionCommand = "female";
-    private final String jrOtherActionCommand = "other";
     private final JPasswordField tfPassword1 = new JPasswordField(30);
     private final JPasswordField tfPassword2 = new JPasswordField(30);
     private final JButton btnRegister = new JButton("Register");
@@ -153,7 +153,6 @@ public class RegistrationPanel {
     }
 
     // Utils
-
     public final void clearFields() {
         tfFirstName.setText("");
         tfLastName.setText("");
