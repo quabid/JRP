@@ -195,11 +195,10 @@ public class RegistrationPanel {
 
         if (!validEmail) {
             formErrors.put("invalid-email", "Must provide a valid email");
-            return validEmail;
         } else {
             formErrors.remove("invalid-email");
-            return validEmail;
         }
+        return validEmail;
     }
 
     private final boolean validPasswords() {
