@@ -29,7 +29,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
     private final Container c = getContentPane();
     private final RegistrationPanel registrationPanel = new RegistrationPanel(this);
     private String username = "";
-    CardLayout card;
+    private CardLayout card;
 
     public MyFrame(String title) {
         super(title);
