@@ -40,8 +40,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
         setResizable(false);
     }
 
-    // Action Handlers
-
+    // Event Handlers
     private final void registerUser() {
         HashMap<String, String> data = registrationPanel.getData();
         printData(data);
