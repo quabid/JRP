@@ -35,7 +35,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
         super(title);
         URL imgUrl = getClass().getResource("/air-96.png");
         setIconImage(new ImageIcon(imgUrl).getImage());
-        createStartGui();
+        showLoginForm();
         pack();
         setResizable(false);
     }
@@ -46,7 +46,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
         printData(data);
     }
 
-    private final void createStartGui() {
+    private final void showLoginForm() {
         registrationPanel.clearFields();
         card = new CardLayout(50, 100);
         c.removeAll();
@@ -88,7 +88,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
 
     private final void logout() {
         login.clearFields();
-        createStartGui();
+        showLoginForm();
     }
 
     private final void quitProg() {
@@ -113,7 +113,7 @@ public class MyFrame extends CustomFrame implements ActionListener, MouseListene
                         break;
 
                     case "cancel":
-                        createStartGui();
+                        showLoginForm();
                         break;
 
                     case "register":
