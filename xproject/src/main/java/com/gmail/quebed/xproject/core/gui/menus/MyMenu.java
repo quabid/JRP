@@ -36,6 +36,12 @@ public class MyMenu {
         menuItem.setMnemonic(KeyEvent.VK_Q);
         menu.add(menuItem);
 
+        menuItem = new JMenuItem("About", new ImageIcon("/info-48.png"));
+        menuItem.setActionCommand("about");
+        menuItem.addActionListener(actionListener);
+        menuItem.setMnemonic(KeyEvent.VK_A);
+        menu.add(menuItem);
+
         return menuBar;
     }
 
